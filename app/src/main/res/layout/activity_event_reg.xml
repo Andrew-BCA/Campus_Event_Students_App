@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".event_reg_activity">
+
+    <EditText
+        android:id="@+id/editTextName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Name"/>
+
+    <EditText
+        android:id="@+id/editTextEmail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/editTextName"
+        android:layout_marginTop="16dp"
+        android:hint="Roll No.:"/>
+
+    <EditText
+        android:id="@+id/editTextDept"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/editTextEmail"
+        android:layout_marginTop="16dp"
+        android:hint="Participant Department"/>
+    <EditText
+        android:id="@+id/editTextEventDept"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/editTextDept"
+        android:layout_marginTop="16dp"
+        android:hint="Event organizing Department"/>
+
+    <EditText
+        android:id="@+id/editTextEvent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/editTextEventDept"
+        android:layout_marginTop="16dp"
+        android:hint="Event Name"/>
+
+    <EditText
+        android:id="@+id/editTextMobile"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/editTextEvent"
+        android:layout_marginTop="16dp"
+        android:inputType="phone"
+        android:hint="Participant Mobile Number"/>
+
+    <Button
+        android:id="@+id/buttonRegister"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/editTextMobile"
+        android:layout_marginTop="16dp"
+        android:text="Register"
+        />
+
+</RelativeLayout>

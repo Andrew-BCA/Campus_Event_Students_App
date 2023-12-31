@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "677372472827",
+    "project_id": "campus-event-students",
+    "storage_bucket": "campus-event-students.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:677372472827:android:e81f9410ea341677916f5e",
+        "android_client_info": {
+          "package_name": "com.example.campuseventstudents"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAONL11dJpQVTDRODoV9KL-BfLEjEwPA6s"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

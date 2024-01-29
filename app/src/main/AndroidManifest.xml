@@ -13,6 +13,12 @@
         android:theme="@style/Theme.CampusEventStudents"
         tools:targetApi="31">
         <activity
+            android:name=".register_activity$CustomPDFView"
+            android:exported="false" />
+        <activity
+            android:name=".PDFViewActivity"
+            android:exported="false" />
+        <activity
             android:name=".event_reg_activity"
             android:exported="false" />
         <activity

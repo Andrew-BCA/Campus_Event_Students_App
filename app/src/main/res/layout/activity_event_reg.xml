@@ -1,64 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp"
-    xmlns:tools="http://schemas.android.com/tools"
     tools:context=".event_reg_activity">
 
     <EditText
-        android:id="@+id/editTextName"
+        android:id="@+id/editTextRoll"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Name"/>
-
-    <EditText
-        android:id="@+id/editTextEmail"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/editTextName"
         android:layout_marginTop="16dp"
-        android:hint="Roll No.:"/>
+        android:hint="Roll Number" />
 
     <EditText
         android:id="@+id/editTextDept"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/editTextEmail"
-        android:layout_marginTop="16dp"
-        android:hint="Participant Department"/>
-    <EditText
-        android:id="@+id/editTextEventDept"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/editTextDept"
-        android:layout_marginTop="16dp"
-        android:hint="Event organizing Department"/>
+        android:layout_below="@id/editTextRoll"
+        android:layout_marginTop="8dp"
+        android:hint="Department" />
 
-    <EditText
-        android:id="@+id/editTextEvent"
+    <Spinner
+        android:id="@+id/spinnerEventName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/editTextEventDept"
-        android:layout_marginTop="16dp"
-        android:hint="Event Name"/>
+        android:layout_below="@id/editTextDept"
+        android:layout_marginTop="8dp"
+        android:hint="Select Event" />
 
-    <EditText
-        android:id="@+id/editTextMobile"
+    <Spinner
+        android:id="@+id/spinnerOrganizingDept"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/editTextEvent"
-        android:layout_marginTop="16dp"
-        android:inputType="phone"
-        android:hint="Participant Mobile Number"/>
+        android:layout_below="@id/spinnerEventName"
+        android:layout_marginTop="8dp"
+        android:hint="Select Organizing Department" />
 
     <Button
         android:id="@+id/buttonRegister"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/editTextMobile"
+        android:layout_below="@id/spinnerOrganizingDept"
         android:layout_marginTop="16dp"
-        android:text="Register"
-        />
+        android:text="Register" />
 
 </RelativeLayout>

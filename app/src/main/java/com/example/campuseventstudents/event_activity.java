@@ -3,6 +3,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -15,6 +16,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 @SuppressLint("MissingInflatedId")
 public class event_activity extends AppCompatActivity {
@@ -47,16 +50,28 @@ public class event_activity extends AppCompatActivity {
 
                     // Create TextViews dynamically for each event
                     TextView titleTextView = new TextView(event_activity.this);
-                    titleTextView.setText(data.getEvent());
+                    titleTextView.setText("Event Name: "+data.getEvent());
 
                     TextView departTextView = new TextView(event_activity.this);
-                    departTextView.setText(data.getDept());
+                    departTextView.setText("Organizing Dept: "+data.getDept());
 
                     TextView linkTextView = new TextView(event_activity.this);
-                    linkTextView.setText(data.getRegDate());
+                    linkTextView.setText("Last date for Registration: "+data.getRegDate());
 
                     TextView dateTextView = new TextView(event_activity.this);
-                    dateTextView.setText(data.getDate());
+                    dateTextView.setText("Event Date: "+data.getDate());
+
+                    // Create a download button for each event
+                    Button downloadButton = new Button(event_activity.this);
+                    downloadButton.setText("Download Brochure");
+                    downloadButton.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            // Create an Intent to download the brochure
+                            String eventName = data.getEvent();
+                            downloadBrochure(eventName);
+                        }
+                    });
 
 
 
@@ -76,6 +91,7 @@ public class event_activity extends AppCompatActivity {
                     eventLayout.addView(departTextView);
                     eventLayout.addView(dateTextView);
                     eventLayout.addView(linkTextView);
+                    eventLayout.addView(downloadButton);
                     eventLayout.addView(deleteButton);
 
                     // Add eventLayout to the main LinearLayout
@@ -88,5 +104,19 @@ public class event_activity extends AppCompatActivity {
                 // Handle errors, add your code here
             }
         });
+    }
+
+    private void downloadBrochure(String eventName) {
+        // Implement the code to download the brochure from Firebase Cloud Storage
+        // You can use the StorageReference to get the download URL and open it using an Intent
+        // Example:
+         StorageReference brochureRef = FirebaseStorage.getInstance().getReference().child("brochures/" + eventName + ".pdf");
+         brochureRef.getDownloadUrl().addOnSuccessListener(uri -> {
+             String downloadUrl = uri.toString();
+             Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(downloadUrl));
+             startActivity(browserIntent);
+         }).addOnFailureListener(exception -> {
+        //     // Handle any errors that may occur
+         });
     }
 }

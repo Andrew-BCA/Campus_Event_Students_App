@@ -20,7 +20,7 @@ import com.google.firebase.database.ValueEventListener;
 public class login_activity extends AppCompatActivity {
 
     private EditText usernameEditText, passwordEditText,deptEditText;
-    private ImageButton loginButton;
+    private Button loginButton;
     private DatabaseReference databaseReference;
 
     @SuppressLint("MissingInflatedId")

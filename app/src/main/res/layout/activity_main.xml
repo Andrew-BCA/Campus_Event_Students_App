@@ -7,7 +7,7 @@
     tools:context=".MainActivity">
 
 
-    <ImageButton
+    <Button
         android:id="@+id/register"
         android:layout_width="267dp"
         android:layout_height="66dp"
@@ -23,7 +23,7 @@
         app:layout_constraintStart_toStartOf="parent"
         tools:layout_editor_absoluteY="185dp" />
 
-    <ImageButton
+    <Button
         android:id="@+id/login"
         android:layout_width="272dp"
         android:layout_height="65dp"

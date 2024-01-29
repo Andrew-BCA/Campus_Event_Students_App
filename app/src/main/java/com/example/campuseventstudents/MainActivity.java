@@ -13,7 +13,7 @@ import com.example.campuseventstudents.R;
 
 public class MainActivity extends AppCompatActivity {
 
-   ImageButton log,reg;
+   Button log,reg;
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {

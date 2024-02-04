@@ -45,8 +45,8 @@ public class event_reg_activity extends AppCompatActivity {
         eventsRef = FirebaseDatabase.getInstance().getReference("events");
         participants = FirebaseDatabase.getInstance().getReference("participants");
 
-        rollEditText = findViewById(R.id.editTextRoll);
-        deptEditText = findViewById(R.id.editTextDept);
+      //  rollEditText = findViewById(R.id.editTextRoll);
+     //   deptEditText = findViewById(R.id.editTextDept);
         registerButton = findViewById(R.id.buttonRegister);
         eventNameSpinner = findViewById(R.id.spinnerEventName);
         organizingDeptSpinner = findViewById(R.id.spinnerOrganizingDept);
@@ -97,18 +97,18 @@ public class event_reg_activity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 // Get user input
-                String roll = rollEditText.getText().toString().trim();
-                String dept = deptEditText.getText().toString().trim();
                 String selectedEventName = eventNameSpinner.getSelectedItem().toString();
                 String selectedOrganizingDept = organizingDeptSpinner.getSelectedItem().toString();
 
-                // Validate input
-                if (TextUtils.isEmpty(roll) || TextUtils.isEmpty(dept) || TextUtils.isEmpty(selectedEventName)) {
-                    Toast.makeText(event_reg_activity.this, "Please fill in all fields", Toast.LENGTH_SHORT).show();
-                } else {
-                    // Check if the user exists in the database
-                    checkUserExistence(roll, dept, selectedEventName, selectedOrganizingDept);
-                }
+                // Retrieve the roll number from SharedPreferences
+                String roll = getSharedPreferences("user_info", MODE_PRIVATE)
+                        .getString("roll", "default_value_if_not_found");
+
+                // Retrieve the roll number from SharedPreferences
+                String dept = getSharedPreferences("user_dept", MODE_PRIVATE)
+                        .getString("dept", "default_value_if_not_found");
+
+                checkUserExistence(roll, dept, selectedEventName, selectedOrganizingDept);
 
             }
         });
@@ -162,37 +162,61 @@ public class event_reg_activity extends AppCompatActivity {
                 Toast.makeText(event_reg_activity.this, "Error loading organizing departments", Toast.LENGTH_SHORT).show();
             }
         });
+
+
     }
 
     private void checkUserExistence(final String roll, final String dept, final String selectedEventName, final String selectedOrganizingDept) {
+
         usersRef.child(dept).child(roll).addListenerForSingleValueEvent(new ValueEventListener() {
+
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
                     // User exists, retrieve additional information
                     User user = dataSnapshot.getValue(User.class);
-                    Events event = dataSnapshot.getValue(Events.class);
 
-                    // Now you have the complete user information, you can use it as needed
-                    String username = user.getUsername();
-                    String email = user.getEmail();
-                    String mobile = user.getMobile();
-                    String userDept = user.getDept();
+                    // Retrieve event information from eventsRef
+                    eventsRef.child(selectedEventName).addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot eventSnapshot) {
+                            if (eventSnapshot.exists()) {
+                                Events event = eventSnapshot.getValue(Events.class);
 
-                    String eventDept = event.getDept();
+                                // Now you have the complete user and event information, you can use it as needed
+                                String username = user.getUsername();
+                                String email = user.getEmail();
+                                String mobile = user.getMobile();
+                                String userDept = user.getDept();
+                                String eventDate = event.getDate();
+                                String eventDept = event.getDept();
 
-                    // Perform your event registration logic using the retrieved information
-                    // For example, you can store the event registration information in a new node in the database
+                                // Perform your event registration logic using the retrieved information
+                                // For example, you can store the event registration information in a new node in the database
 
-                    // Finish registration or navigate to the next step
-                    Toast.makeText(event_reg_activity.this, "User information retrieved successfully", Toast.LENGTH_SHORT).show();
+                                // Create Participant object
+                                Participant participant = new Participant(username, email, userDept, selectedEventName, mobile, eventDept, roll, eventDate);
 
-                    // Create Participant object
-                    Participant participant = new Participant(username, email, userDept, selectedEventName, mobile, eventDept, roll);
+                                // Push data to Firebase
+                                participants.child(dept).child(selectedEventName).child(roll).setValue(participant);
 
-                    // Push data to Firebase
-                    participants.child(selectedOrganizingDept).child(selectedEventName).child(roll).setValue(participant);
-                    finish();
+                                // Finish registration or navigate to the next step
+                                Toast.makeText(event_reg_activity.this, "Event Registered successfully", Toast.LENGTH_SHORT).show();
+
+                                finish();
+                            } else {
+                                // Handle the case where the event does not exist
+                                Toast.makeText(event_reg_activity.this, "Event not found. Please check event name and organizing department.", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+                            // Handle errors
+                            Toast.makeText(event_reg_activity.this, "Error retrieving event information", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+
                 } else {
                     // User does not exist
                     Toast.makeText(event_reg_activity.this, "User not found. Please check roll number and department.", Toast.LENGTH_SHORT).show();
@@ -206,4 +230,5 @@ public class event_reg_activity extends AppCompatActivity {
             }
         });
     }
+
 }

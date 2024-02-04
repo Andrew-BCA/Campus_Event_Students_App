@@ -5,26 +5,11 @@
     android:layout_height="match_parent"
     tools:context=".event_reg_activity">
 
-    <EditText
-        android:id="@+id/editTextRoll"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:hint="Roll Number" />
-
-    <EditText
-        android:id="@+id/editTextDept"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/editTextRoll"
-        android:layout_marginTop="8dp"
-        android:hint="Department" />
 
     <Spinner
         android:id="@+id/spinnerEventName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/editTextDept"
         android:layout_marginTop="8dp"
         android:hint="Select Event" />
 

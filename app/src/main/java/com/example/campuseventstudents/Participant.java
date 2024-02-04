@@ -10,12 +10,13 @@ public class Participant {
     private String mobile;
     private String eventDept;
     private  String roll;
+    private String eventDate;
 
 
     public Participant() {
         // Default constructor required for calls to DataSnapshot.getValue(User.class)
     }
-    public Participant(String name,String email, String dept, String eventName,String mobile,String eventDept,String roll) {
+    public Participant(String name,String email, String dept, String eventName,String mobile,String eventDept,String roll,String eventDate) {
         this.name = name;
         this.email = email;
         this.dept = dept;
@@ -23,6 +24,7 @@ public class Participant {
         this.eventDept = eventDept;
         this.mobile = mobile;
         this.roll = roll;
+        this.eventDate = eventDate;
     }
 
     public String getName() { return name; }
@@ -46,5 +48,7 @@ public class Participant {
     public String getMobile(){ return mobile; }
 
     public  String getRoll(){ return roll; }
+
+    public String getEventDate(){ return eventDate; }
 
 }

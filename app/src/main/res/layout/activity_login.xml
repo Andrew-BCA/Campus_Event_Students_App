@@ -34,6 +34,7 @@
     <Button
         android:id="@+id/buttonLogin"
         android:layout_width="250dp"
+        android:text="Log-in"
         android:layout_height="50dp"
         android:layout_below="@id/editTextPassword"
         android:layout_marginTop="29dp"

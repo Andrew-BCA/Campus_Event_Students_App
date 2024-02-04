@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Dashboard">
+
+    <Button
+        android:id="@+id/viewnotify"
+        android:layout_width="203dp"
+        android:layout_height="53dp"
+        android:text="View Notification"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="65dp"
+        tools:layout_editor_absoluteY="401dp"
+        android:layout_below="@+id/viewresult"
+        android:layout_marginLeft="100dp"/>
+
+    <Button
+        android:id="@+id/viewresult"
+        android:layout_width="203dp"
+        android:layout_height="53dp"
+        android:text="View Result"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="65dp"
+        tools:layout_editor_absoluteY="309dp"
+        android:layout_below="@+id/viewpart"
+        android:layout_marginLeft="100dp"/>
+
+    <Button
+        android:id="@+id/viewpart"
+        android:layout_width="203dp"
+        android:layout_height="53dp"
+        android:text="View Participation History"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="65dp"
+        tools:layout_editor_absoluteY="231dp"
+        android:layout_below="@+id/viewevent"
+        android:layout_marginLeft="100dp"/>
+
+    <Button
+        android:id="@+id/viewevent"
+        android:layout_width="203dp"
+        android:layout_height="53dp"
+        android:text="View Events"
+        android:textColorLink="#225C6E"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="65dp"
+        tools:layout_editor_absoluteY="142dp"
+        android:layout_marginLeft="100dp"
+        android:layout_marginTop="150dp"/>
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+         />
+
+</RelativeLayout>

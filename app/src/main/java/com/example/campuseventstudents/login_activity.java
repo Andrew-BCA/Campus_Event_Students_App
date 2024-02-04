@@ -56,8 +56,26 @@ public class login_activity extends AppCompatActivity {
                                 Log.d("LoginActivity", "Redirecting to EventActivity");
 
                                 // Redirect to EventActivity
-                                Intent intent = new Intent(login_activity.this, event_activity.class);
+                                Intent intent = new Intent(login_activity.this, Dashboard.class);
                                 startActivity(intent);
+
+                                // After password check, assuming "rollNo" is the field in your database
+                                String rollNo = snapshot.child("roll").getValue(String.class);
+
+// Save the roll number to SharedPreferences
+                                getSharedPreferences("user_info", MODE_PRIVATE)
+                                        .edit()
+                                        .putString("roll", rollNo)
+                                        .apply();
+
+                                String Dept = snapshot.child("dept").getValue(String.class);
+
+// Save the dept number to SharedPreferences
+                                getSharedPreferences("user_dept", MODE_PRIVATE)
+                                        .edit()
+                                        .putString("dept", Dept)
+                                        .apply();
+
                             }
                             else {
                                 // Passwords don't match

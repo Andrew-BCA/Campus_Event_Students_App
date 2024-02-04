@@ -1,4 +1,5 @@
 package com.example.campuseventstudents;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
@@ -9,6 +10,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Button;
 import android.view.View;
+import android.widget.Toast;
 
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.database.DataSnapshot;
@@ -33,6 +35,10 @@ public class event_activity extends AppCompatActivity {
 
         // Reference to LinearLayout to dynamically add TextViews
         LinearLayout linearLayout = findViewById(R.id.linearLayout);
+
+      DatabaseReference  participants = FirebaseDatabase.getInstance().getReference("participants");
+        DatabaseReference usersRef = FirebaseDatabase.getInstance().getReference("users");
+        DatabaseReference eventsRef = FirebaseDatabase.getInstance().getReference("events");
 
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
@@ -73,16 +79,84 @@ public class event_activity extends AppCompatActivity {
                         }
                     });
 
-
-
                     // Create a delete button for each event
                     Button deleteButton = new Button(event_activity.this);
                     deleteButton.setText("Register");
                     deleteButton.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
-                            Intent i = new Intent(event_activity.this,event_reg_activity.class);
-                            startActivity(i);
+                           // Intent i = new Intent(event_activity.this,event_reg_activity.class);
+                           // startActivity(i);
+                            // Retrieve the roll number from SharedPreferences
+                            String roll = getSharedPreferences("user_info", MODE_PRIVATE)
+                                    .getString("roll", "default_value_if_not_found");
+
+                            // Retrieve the roll number from SharedPreferences
+                            String dept = getSharedPreferences("user_dept", MODE_PRIVATE)
+                                    .getString("dept", "default_value_if_not_found");
+
+                            usersRef.child(dept).child(roll).addListenerForSingleValueEvent(new ValueEventListener() {
+
+                                @Override
+                                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                    if (dataSnapshot.exists()) {
+                                        // User exists, retrieve additional information
+                                        User user = dataSnapshot.getValue(User.class);
+
+                                        // Retrieve event information from eventsRef
+                                        eventsRef.child(data.getEvent()).addListenerForSingleValueEvent(new ValueEventListener() {
+                                            @Override
+                                            public void onDataChange(@NonNull DataSnapshot eventSnapshot) {
+                                                if (eventSnapshot.exists()) {
+                                                    Events event = eventSnapshot.getValue(Events.class);
+
+                                                    // Now you have the complete user and event information, you can use it as needed
+                                                    String username = user.getUsername();
+                                                    String email = user.getEmail();
+                                                    String mobile = user.getMobile();
+                                                    String userDept = user.getDept();
+                                                    String eventDate = event.getDate();
+                                                    String eventDept = event.getDept();
+
+                                                    // Perform your event registration logic using the retrieved information
+                                                    // For example, you can store the event registration information in a new node in the database
+
+                                                    // Create Participant object
+                                                    Participant participant = new Participant(username, email, userDept, data.getEvent(), mobile, eventDept, roll, eventDate);
+
+                                                    // Push data to Firebase
+                                                    participants.child(dept).child(data.getEvent()).child(roll).setValue(participant);
+
+                                                    // Finish registration or navigate to the next step
+                                                    Toast.makeText(event_activity.this, "Event Registered successfully", Toast.LENGTH_SHORT).show();
+
+                                                    finish();
+                                                } else {
+                                                    // Handle the case where the event does not exist
+                                                    Toast.makeText(event_activity.this, "Event not found. Please check event name and organizing department.", Toast.LENGTH_SHORT).show();
+                                                }
+                                            }
+
+                                            @Override
+                                            public void onCancelled(@NonNull DatabaseError error) {
+                                                // Handle errors
+                                                Toast.makeText(event_activity.this, "Error retrieving event information", Toast.LENGTH_SHORT).show();
+                                            }
+                                        });
+
+                                    } else {
+                                        // User does not exist
+                                        Toast.makeText(event_activity.this, "User not found. Please check roll number and department.", Toast.LENGTH_SHORT).show();
+                                    }
+                                }
+
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError error) {
+                                    // Handle errors
+                                    Toast.makeText(event_activity.this, "Error checking user existence", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+
                         }
                     });
 

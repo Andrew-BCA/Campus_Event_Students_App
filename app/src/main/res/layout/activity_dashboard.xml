@@ -1,60 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
     tools:context=".Dashboard">
 
     <Button
-        android:id="@+id/viewnotify"
-        android:layout_width="203dp"
-        android:layout_height="53dp"
-        android:text="View Notification"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="65dp"
-        tools:layout_editor_absoluteY="401dp"
-        android:layout_below="@+id/viewresult"
-        android:layout_marginLeft="100dp"/>
+        android:id="@+id/viewevent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="View Events"
+        android:layout_below="@+id/textView"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"/>
 
     <Button
-        android:id="@+id/viewresult"
-        android:layout_width="203dp"
-        android:layout_height="53dp"
-        android:text="View Result"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="65dp"
-        tools:layout_editor_absoluteY="309dp"
-        android:layout_below="@+id/viewpart"
-        android:layout_marginLeft="100dp"/>
+        android:id="@+id/viewnotify"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="View Notifications"
+        android:layout_below="@id/viewresult"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"/>
 
     <Button
         android:id="@+id/viewpart"
-        android:layout_width="203dp"
-        android:layout_height="53dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:text="View Participation History"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="65dp"
-        tools:layout_editor_absoluteY="231dp"
-        android:layout_below="@+id/viewevent"
-        android:layout_marginLeft="100dp"/>
-
+        android:layout_below="@id/viewnotify"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"/>
     <Button
-        android:id="@+id/viewevent"
-        android:layout_width="203dp"
-        android:layout_height="53dp"
-        android:text="View Events"
-        android:textColorLink="#225C6E"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="65dp"
-        tools:layout_editor_absoluteY="142dp"
-        android:layout_marginLeft="100dp"
-        android:layout_marginTop="150dp"/>
+        android:id="@+id/viewresult"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="View Result"
+        android:layout_below="@id/viewevent"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"/>
 
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-         />
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="50dp"/>
 
 </RelativeLayout>

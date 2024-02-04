@@ -1,64 +1,67 @@
-<LinearLayout
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="16dp"
     tools:context=".register_activity">
-
-    <EditText
-        android:id="@+id/editTextRollNo"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Roll No"
-        android:inputType="text"/>
 
     <EditText
         android:id="@+id/editTextUsername"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Full Name"
-        android:inputType="text"/>
+        android:hint="Username"/>
 
+    <EditText
+        android:id="@+id/editTextRollNo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/editTextUsername"
+        android:layout_marginTop="16dp"
+        android:hint="Roll No"/>
 
     <EditText
         android:id="@+id/editTextDept"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Department"
-        android:inputType="text"/>
-
-    <EditText
-        android:id="@+id/editTextEmail"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Email"
-        android:inputType="textEmailAddress"/>
-
+        android:layout_below="@+id/editTextRollNo"
+        android:layout_marginTop="16dp"
+        android:hint="Department"/>
 
     <EditText
         android:id="@+id/editTextMobile"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Mobile"
-        android:inputType="text"/>
+        android:layout_below="@+id/editTextDept"
+        android:layout_marginTop="16dp"
+        android:hint="Mobile"/>
+
+    <EditText
+        android:id="@+id/editTextEmail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/editTextMobile"
+        android:layout_marginTop="16dp"
+        android:hint="Email"
+        android:inputType="textEmailAddress"/>
 
     <EditText
         android:id="@+id/editTextPassword"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/editTextEmail"
+        android:layout_marginTop="16dp"
         android:hint="Password"
         android:inputType="textPassword"/>
 
     <Button
         android:id="@+id/buttonRegister"
-        android:layout_width="250dp"
-        android:layout_height="50dp"
-        android:background="@color/white"
-        android:scaleType="fitCenter"
-        android:layout_marginLeft="25dp"
-        android:text="Register"
-        android:src="@drawable/register" />
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/editTextPassword"
+        android:layout_marginTop="16dp"
+        android:text="Register"/>
 
-</LinearLayout>
+    <!-- Add any other UI elements or layouts as needed -->
+
+</RelativeLayout>

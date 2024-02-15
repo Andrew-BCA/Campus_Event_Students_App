@@ -37,6 +37,7 @@ public class event_activity extends AppCompatActivity {
         LinearLayout linearLayout = findViewById(R.id.linearLayout);
 
       DatabaseReference  participants = FirebaseDatabase.getInstance().getReference("participants");
+        DatabaseReference  participanthistory = FirebaseDatabase.getInstance().getReference("participanthistory");
         DatabaseReference usersRef = FirebaseDatabase.getInstance().getReference("users");
         DatabaseReference eventsRef = FirebaseDatabase.getInstance().getReference("events");
 
@@ -126,6 +127,7 @@ public class event_activity extends AppCompatActivity {
 
                                                     // Push data to Firebase
                                                     participants.child(dept).child(data.getEvent()).child(roll).setValue(participant);
+                                                    participanthistory.child(dept).child(data.getEvent()).child(roll).setValue(participant);
 
                                                     // Finish registration or navigate to the next step
                                                     Toast.makeText(event_activity.this, "Event Registered successfully", Toast.LENGTH_SHORT).show();

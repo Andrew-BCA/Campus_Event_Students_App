@@ -41,7 +41,7 @@ public class View_History extends AppCompatActivity {
 
         roll_no.setText(rollNo);
 
-        dbref = FirebaseDatabase.getInstance().getReference("participants");
+        dbref = FirebaseDatabase.getInstance().getReference("participanthistory");
 
         // ...
 

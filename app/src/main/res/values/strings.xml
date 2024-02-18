@@ -1,4 +1,9 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string name="app_name">RegistriX Students</string>
     <string name="select_event_prompt">Select Event</string>
+    <string name="channel_name">RegistriX</string>
+    <string name="channel_description">Alert!!!! New events available take a look over it.....</string>
+    <string name="register_he">register here</string>
+    <string name="donthaveac">Don\'t Have an account?</string>
+
 </resources>

@@ -86,7 +86,11 @@ public class register_activity extends AppCompatActivity {
                                 startActivity(i);
                                 finish();
                             } else {
-                                Toast.makeText(register_activity.this, "Registration failed", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(register_activity.this, "Registration successful", Toast.LENGTH_SHORT).show();
+
+                                Intent i = new Intent(register_activity.this, login_activity.class);
+                                startActivity(i);
+                                finish();
                             }
                         }
                     });

@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -20,7 +21,8 @@ import com.google.firebase.database.ValueEventListener;
 public class login_activity extends AppCompatActivity {
 
     private EditText usernameEditText, passwordEditText,deptEditText;
-    private Button loginButton;
+    private View loginButton;
+    private TextView register;
     private DatabaseReference databaseReference;
 
     @SuppressLint("MissingInflatedId")
@@ -33,6 +35,15 @@ public class login_activity extends AppCompatActivity {
         deptEditText = findViewById(R.id.editTextDept);
         passwordEditText = findViewById(R.id.editTextPassword);
         loginButton = findViewById(R.id.buttonLogin);
+        register = findViewById(R.id.register_he);
+
+        register.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(login_activity.this,register_activity.class);
+                startActivity(i);
+            }
+        });
 
         databaseReference = FirebaseDatabase.getInstance().getReference().child("users");
 
@@ -56,7 +67,7 @@ public class login_activity extends AppCompatActivity {
                                 Log.d("LoginActivity", "Redirecting to EventActivity");
 
                                 // Redirect to EventActivity
-                                Intent intent = new Intent(login_activity.this, Dashboard.class);
+                                Intent intent = new Intent(login_activity.this, loadin.class);
                                 startActivity(intent);
 
                                 // After password check, assuming "rollNo" is the field in your database

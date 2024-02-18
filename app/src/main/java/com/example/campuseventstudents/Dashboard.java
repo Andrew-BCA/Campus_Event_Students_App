@@ -11,7 +11,8 @@ import android.widget.TextView;
 
 public class Dashboard extends AppCompatActivity {
 
-    Button viewevents,viewnotify,viewpart;
+    TextView viewnotify,viewpart;
+    TextView viewevents;
 
     TextView roll_no ;
     @SuppressLint("MissingInflatedId")

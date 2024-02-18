@@ -23,6 +23,9 @@ public class MainActivity extends AppCompatActivity {
         log = findViewById(R.id.login);
         reg = findViewById(R.id.register);
 
+        Intent i = new Intent(MainActivity.this,login_activity.class);
+        startActivity(i);
+
         log.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

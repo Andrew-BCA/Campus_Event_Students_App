@@ -1,42 +1,121 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/bg3"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".login_activity">
 
-    <EditText
-        android:id="@+id/editTextUsername"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Username"/>
 
-    <EditText
-        android:id="@+id/editTextDept"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/editTextUsername"
-        android:layout_marginTop="16dp"
-        android:hint="Department"/>
+    <RelativeLayout
+        android:id="@+id/login"
+        android:layout_width="410dp"
+        android:layout_height="730dp"
+        android:clipToOutline="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="MissingConstraints">
 
-    <EditText
-        android:id="@+id/editTextPassword"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/editTextDept"
-        android:layout_marginTop="16dp"
-        android:hint="Password"
-        android:inputType="textPassword"/>
+        <View
+            android:id="@+id/pngtree_col"
+            android:layout_width="130dp"
+            android:layout_height="119dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="95dp"
+            android:layout_marginTop="65dp"
+            android:background="@drawable/avatar" />
 
-    <Button
-        android:id="@+id/buttonLogin"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/editTextPassword"
-        android:layout_marginTop="16dp"
-        android:text="Login"/>
 
-    <!-- Add any other UI elements or layouts as needed -->
+        <EditText
+            android:id="@+id/editTextUsername"
+            android:layout_width="250dp"
+            android:layout_height="50dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="40dp"
+            android:layout_marginTop="200dp"
+            android:hint="Roll No:"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textSize="35dp"
+            android:background="@drawable/rounded_button" />
+
+        <EditText
+            android:id="@+id/editTextDept"
+            android:layout_width="250dp"
+            android:layout_height="50dp"
+            android:layout_below="@+id/pngtree_col"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="40dp"
+            android:layout_marginTop="270dp"
+            android:hint="Dept:"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textSize="35dp"
+            android:background="@drawable/rounded_button" />
+
+        <EditText
+            android:id="@+id/editTextPassword"
+            android:layout_width="250dp"
+            android:layout_height="50dp"
+            android:layout_below="@+id/editTextDept"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="40dp"
+            android:layout_marginTop="340dp"
+            android:hint="Password"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textSize="35dp"
+            android:inputType="textPassword"
+            android:background="@drawable/rounded_button" />
+
+        <TextView
+            android:id="@+id/buttonLogin"
+            android:layout_width="80dp"
+            android:layout_height="40dp"
+            android:layout_below="@+id/editTextPassword"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="120dp"
+            android:layout_marginTop="430dp"
+            android:gravity="center"
+            android:hint="login"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:textSize="25dp"
+            android:background="@drawable/rounded_button" />
+
+        <TextView
+            android:id="@+id/register_he"
+            android:layout_width="105dp"
+            android:layout_height="21dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="130dp"
+            android:layout_marginTop="531dp"
+            android:gravity="top"
+            android:text="@string/register_he"
+            android:textAppearance="@style/register_he" />
+
+        <TextView
+            android:id="@+id/don_t_have_"
+            android:layout_width="wrap_content"
+            android:layout_height="20dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="80dp"
+            android:layout_marginTop="499dp"
+            android:textColor="@color/white"
+            android:gravity="top"
+            android:text="@string/donthaveac"
+            android:textAppearance="@style/don_t_have_" />
+
+    </RelativeLayout>
 
 </RelativeLayout>

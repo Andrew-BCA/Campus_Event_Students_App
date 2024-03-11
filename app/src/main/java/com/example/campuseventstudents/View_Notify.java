@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -19,10 +20,12 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+
 public class View_Notify extends AppCompatActivity {
 
-    private TextView displayTextView;
     private DatabaseReference messagesRef;
+    private FirebaseStorage storage;
+    private LinearLayout linearLayout;
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -30,63 +33,20 @@ public class View_Notify extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_notify);
 
-        displayTextView = findViewById(R.id.displayTextView);
-
-        // Reference to LinearLayout to dynamically add TextViews
-        LinearLayout linearLayout = findViewById(R.id.linearLayout);
+        linearLayout = findViewById(R.id.linearLayout);
 
         // Initialize Firebase
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         messagesRef = database.getReference("messages");
 
+        // Initialize Firebase Storage
+        storage = FirebaseStorage.getInstance();
+
         // Read data from Firebase
         messagesRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                // Clear existing views before adding new ones
-                linearLayout.removeAllViews();
-
-                // Iterate through each message
-                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                    for (DataSnapshot subjectsnapshot : snapshot.getChildren()) {
-                        Message message = subjectsnapshot.getValue(Message.class);
-
-                        // Create a LinearLayout to hold each notification
-                        LinearLayout eventLayout = new LinearLayout(View_Notify.this);
-                        eventLayout.setOrientation(LinearLayout.VERTICAL);
-
-                        // Create TextViews dynamically for each event
-                        TextView nameTextView = new TextView(View_Notify.this);
-                        nameTextView.setText("Name: " + message.getName());
-
-                        TextView subjectTextView = new TextView(View_Notify.this);
-                        subjectTextView.setText("Subject: " + message.getSubject());
-
-                        TextView contentTextView = new TextView(View_Notify.this);
-                        contentTextView.setText("Content: " + message.getContent());
-
-                        // Create a download button for each event
-                        Button downloadButton = new Button(View_Notify.this);
-                        downloadButton.setText("Download File");
-                        downloadButton.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View view) {
-                                // Create an Intent to download the brochure
-                                String subject = message.getSubject();
-                                downloadBrochure(subject);
-                            }
-                        });
-
-                        // Add TextViews and delete button to the eventLayout
-                        eventLayout.addView(nameTextView);
-                        eventLayout.addView(subjectTextView);
-                        eventLayout.addView(contentTextView);
-                        eventLayout.addView(downloadButton);
-
-                        // Add eventLayout to the main LinearLayout
-                        linearLayout.addView(eventLayout);
-                    }
-                }
+                displayMessages(dataSnapshot);
             }
 
             @Override
@@ -96,17 +56,60 @@ public class View_Notify extends AppCompatActivity {
         });
     }
 
-    private void downloadBrochure(String subject) {
+    private void displayMessages(DataSnapshot dataSnapshot) {
+        linearLayout.removeAllViews(); // Clear existing views
+
+        for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+            for (DataSnapshot messageSnapshot : snapshot.getChildren()) {
+                Message message = messageSnapshot.getValue(Message.class);
+                if (message != null) {
+                    addMessageView(message);
+                }
+            }
+        }
+    }
+
+    private void addMessageView(Message message) {
+        // Create a LinearLayout to hold each notification
+        LinearLayout eventLayout = new LinearLayout(this);
+        eventLayout.setOrientation(LinearLayout.VERTICAL);
+
+        // Create TextViews dynamically for each message
+        TextView nameTextView = new TextView(this);
+        nameTextView.setText("Name: " + message.getName());
+
+        TextView subjectTextView = new TextView(this);
+        subjectTextView.setText("Subject: " + message.getSubject());
+
+        TextView contentTextView = new TextView(this);
+        contentTextView.setText("Content: " + message.getContent());
+
+        // Create a download button for each message
+        Button downloadButton = new Button(this);
+        downloadButton.setText("Download File");
+        downloadButton.setOnClickListener(view -> downloadBrochure(message.getSubject()));
+
+        // Add TextViews and download button to the eventLayout
+        eventLayout.addView(nameTextView);
+        eventLayout.addView(subjectTextView);
+        eventLayout.addView(contentTextView);
+        eventLayout.addView(downloadButton);
+
+        // Add eventLayout to the main LinearLayout
+        linearLayout.addView(eventLayout);
+    }
+
+    private void downloadBrochure(String eventName) {
         // Implement the code to download the brochure from Firebase Cloud Storage
         // You can use the StorageReference to get the download URL and open it using an Intent
         // Example:
-        StorageReference brochureRef = FirebaseStorage.getInstance().getReference().child("File/" + subject + ".pdf");
+        StorageReference brochureRef = FirebaseStorage.getInstance().getReference().child("files/" + eventName + ".pdf");
         brochureRef.getDownloadUrl().addOnSuccessListener(uri -> {
             String downloadUrl = uri.toString();
             Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(downloadUrl));
             startActivity(browserIntent);
         }).addOnFailureListener(exception -> {
-            // Handle any errors that may occur
+            //     // Handle any errors that may occur
         });
     }
 }

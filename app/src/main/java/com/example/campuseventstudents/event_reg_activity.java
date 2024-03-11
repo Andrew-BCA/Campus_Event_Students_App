@@ -195,7 +195,7 @@ public class event_reg_activity extends AppCompatActivity {
                                 // For example, you can store the event registration information in a new node in the database
 
                                 // Create Participant object
-                                Participant participant = new Participant(username, email, userDept, selectedEventName, mobile, eventDept, roll, eventDate);
+                                Participant participant = new Participant(username, email, userDept, selectedEventName, eventDept, roll, eventDate, mobile);
 
                                 // Push data to Firebase
                                 participants.child(dept).child(selectedEventName).child(roll).setValue(participant);

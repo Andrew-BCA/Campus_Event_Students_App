@@ -3,6 +3,7 @@
     <style name="Base.Theme.CampusEventStudents" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
          <item name="colorPrimary">#1f0037</item>
+        <item name="colorButtonNormal">#FFFFFF</item>
     </style>
 
     <style name="Theme.CampusEventStudents" parent="Base.Theme.CampusEventStudents" />

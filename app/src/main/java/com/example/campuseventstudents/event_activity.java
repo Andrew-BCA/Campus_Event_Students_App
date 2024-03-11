@@ -68,6 +68,9 @@ public class event_activity extends AppCompatActivity {
                     TextView dateTextView = new TextView(event_activity.this);
                     dateTextView.setText("Event Date: "+data.getDate());
 
+                    TextView addinfoTextView = new TextView(event_activity.this);
+                    addinfoTextView.setText("Additional Info: " + data.getAddinfo());
+
                     // Create a download button for each event
                     Button downloadButton = new Button(event_activity.this);
                     downloadButton.setText("Download Brochure");
@@ -80,6 +83,29 @@ public class event_activity extends AppCompatActivity {
                         }
                     });
 
+
+                    // Create a share button for each event
+                   /* Button shareButton = new Button(event_activity.this);
+                    shareButton.setText("Share Event");
+                    shareButton.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            // Create an Intent to share the event details
+                            String eventDetails = "Event Name: " + data.getEvent() + "\n"
+                                    + "Organizing Dept: " + data.getDept() + "\n"
+                                    + "Last date for Registration: " + data.getRegDate() + "\n"
+                                    + "Event Date: " + data.getDate();
+
+                            Intent shareIntent = new Intent(Intent.ACTION_SEND);
+                            shareIntent.setType("text/plain");
+                            shareIntent.putExtra(Intent.EXTRA_SUBJECT, "Check out this event!");
+                            shareIntent.putExtra(Intent.EXTRA_TEXT, eventDetails);
+
+                            startActivity(Intent.createChooser(shareIntent, "Share via"));
+                        }
+                    });*/
+
+
                     // Create a delete button for each event
                     Button deleteButton = new Button(event_activity.this);
                     deleteButton.setText("Register");
@@ -88,9 +114,11 @@ public class event_activity extends AppCompatActivity {
                         public void onClick(View view) {
                            // Intent i = new Intent(event_activity.this,event_reg_activity.class);
                            // startActivity(i);
+
                             // Retrieve the roll number from SharedPreferences
                             String roll = getSharedPreferences("user_info", MODE_PRIVATE)
                                     .getString("roll", "default_value_if_not_found");
+
 
                             // Retrieve the roll number from SharedPreferences
                             String dept = getSharedPreferences("user_dept", MODE_PRIVATE)
@@ -115,15 +143,15 @@ public class event_activity extends AppCompatActivity {
                                                     String username = user.getUsername();
                                                     String email = user.getEmail();
                                                     String mobile = user.getMobile();
-                                                    String userDept = user.getDept();
                                                     String eventDate = event.getDate();
                                                     String eventDept = event.getDept();
+                                                    String eventaddinfo = event.getAddinfo();
 
                                                     // Perform your event registration logic using the retrieved information
                                                     // For example, you can store the event registration information in a new node in the database
 
                                                     // Create Participant object
-                                                    Participant participant = new Participant(username, email, userDept, data.getEvent(), mobile, eventDept, roll, eventDate);
+                                                    Participant participant = new Participant(username, email, dept, data.getEvent(), eventDept, roll, eventDate,mobile);
 
                                                     // Push data to Firebase
                                                     participants.child(dept).child(data.getEvent()).child(roll).setValue(participant);
@@ -167,8 +195,10 @@ public class event_activity extends AppCompatActivity {
                     eventLayout.addView(departTextView);
                     eventLayout.addView(dateTextView);
                     eventLayout.addView(linkTextView);
+                    eventLayout.addView(addinfoTextView);
                     eventLayout.addView(downloadButton);
                     eventLayout.addView(deleteButton);
+                   // eventLayout.addView(shareButton);
 
                     // Add eventLayout to the main LinearLayout
                     linearLayout.addView(eventLayout);
@@ -186,7 +216,7 @@ public class event_activity extends AppCompatActivity {
         // Implement the code to download the brochure from Firebase Cloud Storage
         // You can use the StorageReference to get the download URL and open it using an Intent
         // Example:
-         StorageReference brochureRef = FirebaseStorage.getInstance().getReference().child("brochures/" + eventName + ".pdf");
+         StorageReference brochureRef = FirebaseStorage.getInstance().getReference().child("brochures/" + eventName+".pdf");
          brochureRef.getDownloadUrl().addOnSuccessListener(uri -> {
              String downloadUrl = uri.toString();
              Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(downloadUrl));

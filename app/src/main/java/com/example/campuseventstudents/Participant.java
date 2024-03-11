@@ -16,15 +16,15 @@ public class Participant {
     public Participant() {
         // Default constructor required for calls to DataSnapshot.getValue(User.class)
     }
-    public Participant(String name,String email, String dept, String eventName,String mobile,String eventDept,String roll,String eventDate) {
+    public Participant(String name,String email, String dept, String eventName,String eventDept,String roll,String eventDate,String mobile) {
         this.name = name;
         this.email = email;
         this.dept = dept;
         this.eventName = eventName;
         this.eventDept = eventDept;
-        this.mobile = mobile;
         this.roll = roll;
         this.eventDate = eventDate;
+        this.mobile = mobile;
     }
 
     public String getName() { return name; }

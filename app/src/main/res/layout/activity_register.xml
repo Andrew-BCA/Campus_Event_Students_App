@@ -11,11 +11,11 @@
     <EditText
         android:id="@+id/editTextUsername"
         android:layout_width="400dp"
-        android:layout_height="40dp"
+        android:layout_height="55dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginLeft="7dp"
+        android:layout_marginLeft="12dp"
         android:layout_marginTop="41dp"
         android:background="@drawable/rounded_button"
         android:hint="User Name"
@@ -24,10 +24,10 @@
     <EditText
         android:id="@+id/editTextRollNo"
         android:layout_width="400dp"
-        android:layout_height="40dp"
+        android:layout_height="55dp"
         android:layout_alignParentLeft="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginLeft="7dp"
+        android:layout_marginLeft="12dp"
         android:background="@drawable/rounded_button"
         android:hint="Roll No:"
         android:layout_marginTop="20dp"
@@ -36,10 +36,10 @@
     <EditText
         android:id="@+id/editTextDept"
         android:layout_width="400dp"
-        android:layout_height="40dp"
+        android:layout_height="55dp"
         android:layout_alignParentLeft="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginLeft="7dp"
+        android:layout_marginLeft="12dp"
         android:background="@drawable/rounded_button"
         android:hint="Dept:"
         android:layout_marginTop="20dp"
@@ -49,10 +49,10 @@
     <EditText
         android:id="@+id/editTextMobile"
         android:layout_width="400dp"
-        android:layout_height="40dp"
+        android:layout_height="55dp"
         android:layout_alignParentLeft="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginLeft="7dp"
+        android:layout_marginLeft="12dp"
         android:background="@drawable/rounded_button"
         android:hint="Mobile:"
         android:layout_marginTop="20dp"
@@ -62,10 +62,10 @@
     <EditText
         android:id="@+id/editTextEmail"
         android:layout_width="400dp"
-        android:layout_height="40dp"
+        android:layout_height="55dp"
         android:layout_alignParentLeft="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginLeft="7dp"
+        android:layout_marginLeft="12dp"
         android:background="@drawable/rounded_button"
         android:hint="Email:"
         android:layout_marginTop="20dp"
@@ -75,10 +75,10 @@
     <EditText
         android:id="@+id/editTextPassword"
         android:layout_width="400dp"
-        android:layout_height="40dp"
+        android:layout_height="55dp"
         android:layout_alignParentLeft="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginLeft="7dp"
+        android:layout_marginLeft="12dp"
         android:background="@drawable/rounded_button"
         android:hint="Password"
         android:layout_marginTop="20dp"
@@ -88,13 +88,20 @@
 
 
 
-    <Button
+    <TextView
         android:id="@+id/buttonRegister"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="150dp"
+        android:layout_height="60dp"
         android:layout_below="@+id/editTextPassword"
-        android:layout_marginTop="16dp"
-        android:layout_marginLeft="110dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="140dp"
+        android:layout_marginTop="500dp"
+        android:gravity="center"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="25dp"
+        android:background="@drawable/rounded_button"
 
         android:text="Register"/>
 

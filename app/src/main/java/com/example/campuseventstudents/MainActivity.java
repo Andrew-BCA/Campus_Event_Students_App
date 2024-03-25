@@ -31,6 +31,11 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+        Intent i = new Intent(MainActivity.this,login_activity.class);
+        startActivity(i);
+        finish();
+
+
         usernameEditText = findViewById(R.id.editTextUsername);
         deptEditText = findViewById(R.id.editTextDept);
         passwordEditText = findViewById(R.id.editTextPassword);
@@ -66,6 +71,7 @@ public class MainActivity extends AppCompatActivity {
                                 // Redirect to loading
                                 Intent intent = new Intent(MainActivity.this, loadin.class);
                                 startActivity(intent);
+                                finish();
 
                                 // After password check, assuming "rollNo" is the field in your database
                                 String rollNo = snapshot.child("roll").getValue(String.class);
@@ -90,6 +96,7 @@ public class MainActivity extends AppCompatActivity {
                                 Toast.makeText(MainActivity.this, "Incorrect password", Toast.LENGTH_SHORT).show();
                                 Intent intent = new Intent(MainActivity.this, login_failed.class);
                                 startActivity(intent);
+                                finish();
 
                             }
                         } else {

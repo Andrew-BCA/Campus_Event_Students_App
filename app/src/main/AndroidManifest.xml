@@ -40,12 +40,6 @@
             android:name=".View_Notify"
             android:exported="false" />
         <activity
-            android:name=".register_activity$CustomPDFView"
-            android:exported="false" />
-        <activity
-            android:name=".PDFViewActivity"
-            android:exported="false" />
-        <activity
             android:name=".event_reg_activity"
             android:exported="false" />
         <activity

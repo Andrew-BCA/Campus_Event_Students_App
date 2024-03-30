@@ -20,7 +20,7 @@ import java.security.NoSuchAlgorithmException;
 public class login_activity extends AppCompatActivity {
     private EditText usernameEditText, passwordEditText, deptEditText;
     private TextView loginButton;
-    private TextView register;
+    private TextView register,forgetpass;
     private DatabaseReference databaseReference;
 
     @SuppressLint("MissingInflatedId")
@@ -34,6 +34,15 @@ public class login_activity extends AppCompatActivity {
         passwordEditText = findViewById(R.id.editTextPassword);
         loginButton = findViewById(R.id.buttonLogin);
         register = findViewById(R.id.register_he);
+        forgetpass = findViewById(R.id.forgetpass);
+
+        forgetpass.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(login_activity.this, forgetpass.class);
+                startActivity(i);
+            }
+        });
 
         register.setOnClickListener(new View.OnClickListener() {
             @Override

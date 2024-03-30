@@ -107,6 +107,18 @@
             android:textAppearance="@style/register_he" />
 
         <TextView
+            android:id="@+id/forgetpass"
+            android:layout_width="150dp"
+            android:layout_height="21dp"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="140dp"
+            android:layout_marginTop="20dp"
+            android:gravity="top"
+            android:layout_below="@+id/register_he"
+            android:text="@string/forget"
+            android:textAppearance="@style/register_he" />
+
+        <TextView
             android:id="@+id/don_t_have_"
             android:layout_width="wrap_content"
             android:layout_height="20dp"

@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg3"
+    tools:context=".forgetpass">
+
+    <EditText
+        android:id="@+id/editTextUsername"
+        android:layout_width="400dp"
+        android:layout_height="55dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="12dp"
+        android:layout_marginTop="41dp"
+        android:background="@drawable/rounded_button"
+        android:hint="User Name"
+        android:textAlignment="center" />
+
+    <EditText
+        android:id="@+id/editTextRollNo"
+        android:layout_width="400dp"
+        android:layout_height="55dp"
+        android:layout_alignParentLeft="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="12dp"
+        android:background="@drawable/rounded_button"
+        android:hint="Roll No:"
+        android:layout_marginTop="20dp"
+        android:layout_below="@+id/editTextUsername"
+        android:textAlignment="center" />
+    <EditText
+        android:id="@+id/editTextDept"
+        android:layout_width="400dp"
+        android:layout_height="55dp"
+        android:layout_alignParentLeft="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="12dp"
+        android:background="@drawable/rounded_button"
+        android:hint="Dept:"
+        android:layout_marginTop="20dp"
+        android:layout_below="@+id/editTextRollNo"
+        android:textAlignment="center" />
+
+    <EditText
+        android:id="@+id/editTextmail"
+        android:layout_width="400dp"
+        android:layout_height="55dp"
+        android:layout_alignParentLeft="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="12dp"
+        android:background="@drawable/rounded_button"
+        android:hint="Email"
+        android:layout_marginTop="20dp"
+        android:layout_below="@+id/editTextDept"
+        android:textAlignment="center" />
+
+    <EditText
+        android:id="@+id/editTextnewpass"
+        android:layout_width="400dp"
+        android:layout_height="55dp"
+        android:layout_alignParentLeft="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="12dp"
+        android:background="@drawable/rounded_button"
+        android:hint="Enter New Password"
+        android:inputType="textPassword"
+        android:layout_marginTop="20dp"
+        android:layout_below="@+id/editTextmail"
+        android:textAlignment="center" />
+
+    <EditText
+        android:id="@+id/otp"
+        android:layout_width="200dp"
+        android:layout_height="55dp"
+        android:layout_alignParentLeft="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="12dp"
+        android:background="@drawable/rounded_button"
+        android:hint="Enter OTP"
+        android:layout_marginTop="20dp"
+        android:layout_below="@+id/editTextnewpass"
+        android:inputType="number"
+        android:textAlignment="center" />
+
+
+    <TextView
+        android:id="@+id/buttongenerateotp"
+        android:layout_width="150dp"
+        android:layout_height="60dp"
+        android:layout_below="@+id/editTextnewpass"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="240dp"
+        android:layout_marginTop="20dp"
+        android:gravity="center"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="20dp"
+        android:background="@drawable/rounded_button"
+        android:text="Generate OTP"/>
+
+    <TextView
+        android:id="@+id/buttonreset"
+        android:layout_width="150dp"
+        android:layout_height="60dp"
+        android:layout_below="@+id/buttongenerateotp"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="140dp"
+        android:layout_marginTop="20dp"
+        android:gravity="center"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="20dp"
+        android:background="@drawable/rounded_button"
+        android:text="Reset Password"/>
+</RelativeLayout>

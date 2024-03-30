@@ -22,12 +22,31 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
+import java.util.Properties;
+
+import javax.mail.Authenticator;
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
+
 public class event_activity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_event);
+
+        // Retrieve the roll number from SharedPreferences
+        String roll = getSharedPreferences("user_info", MODE_PRIVATE)
+                .getString("roll", "default_value_if_not_found");
+
+        // Retrieve the roll number from SharedPreferences
+        String dept = getSharedPreferences("user_dept", MODE_PRIVATE)
+                .getString("dept", "default_value_if_not_found");
 
         FirebaseApp.initializeApp(this);
 
@@ -100,13 +119,7 @@ public class event_activity extends AppCompatActivity {
                             deleteButton.setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View view) {
-                                    // Retrieve the roll number from SharedPreferences
-                                    String roll = getSharedPreferences("user_info", MODE_PRIVATE)
-                                            .getString("roll", "default_value_if_not_found");
 
-                                    // Retrieve the roll number from SharedPreferences
-                                    String dept = getSharedPreferences("user_dept", MODE_PRIVATE)
-                                            .getString("dept", "default_value_if_not_found");
 
                                     usersRef.child(dept).child(roll).addListenerForSingleValueEvent(new ValueEventListener() {
                                         @Override
@@ -141,6 +154,8 @@ public class event_activity extends AppCompatActivity {
 
                                                             // Finish registration or navigate to the next step
                                                             Toast.makeText(event_activity.this, "Event Registered successfully", Toast.LENGTH_SHORT).show();
+                                                            String eventName = data.getEvent();
+                                                            sendEmail(email,eventName);
                                                             finish();
 
                                                         } else {
@@ -207,5 +222,65 @@ public class event_activity extends AppCompatActivity {
         }).addOnFailureListener(exception -> {
             // Handle any errors that may occur
         });
+    }
+
+    private void sendEmail(String email,String eventname) {
+        String roll = getSharedPreferences("user_info", MODE_PRIVATE)
+                .getString("roll", "default_value_if_not_found");
+        //final String email = "alfredkewin007@gmail.com";
+        final String recipientEmail = email;
+        final String Rollno = roll;
+
+        // Replace with your Gmail
+        final String senderEmail = "andrewpatrick011@gmail.com";
+        final String senderPassword = "pvdf cmzm akqm bmrh";
+
+        Properties props = new Properties();
+        props.put("mail.smtp.auth", "true");
+        props.put("mail.smtp.starttls.enable", "true");
+        props.put("mail.smtp.host", "smtp.gmail.com");
+        props.put("mail.smtp.port", "587");
+
+        Session session = Session.getInstance(props, new Authenticator() {
+            @Override
+            protected PasswordAuthentication getPasswordAuthentication() {
+                return new PasswordAuthentication(senderEmail, senderPassword);
+            }
+        });
+
+        try {
+            javax.mail.Message message = new MimeMessage(session);
+            message.setFrom(new InternetAddress(senderEmail));
+            message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(recipientEmail));
+            message.setSubject("Event Registration Successfull");
+            message.setText("Dear,"+Rollno +"\n Your Registration process for event "+ eventname +" is successfully completed....\n Don't forget to participate and win exciting prices");
+
+            // Perform email sending in a background thread
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        Transport.send(message);
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                // Toast.makeText(getApplicationContext(), "Email sent successfully", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                    } catch (MessagingException e) {
+                        e.printStackTrace();
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                Toast.makeText(getApplicationContext(), "Failed to send email", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                    }
+                }
+            }).start();
+        } catch (MessagingException e) {
+            e.printStackTrace();
+            Toast.makeText(getApplicationContext(), "Failed to send email", Toast.LENGTH_SHORT).show();
+        }
     }
 }

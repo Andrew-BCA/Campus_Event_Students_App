@@ -3,11 +3,8 @@ package com.example.campuseventstudents;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
@@ -21,10 +18,9 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 public class login_activity extends AppCompatActivity {
-
     private EditText usernameEditText, passwordEditText, deptEditText;
-    private View loginButton;
-    private TextView register;
+    private TextView loginButton;
+    private TextView register,forgetpass;
     private DatabaseReference databaseReference;
 
     @SuppressLint("MissingInflatedId")
@@ -38,6 +34,15 @@ public class login_activity extends AppCompatActivity {
         passwordEditText = findViewById(R.id.editTextPassword);
         loginButton = findViewById(R.id.buttonLogin);
         register = findViewById(R.id.register_he);
+        forgetpass = findViewById(R.id.forgetpass);
+
+        forgetpass.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(login_activity.this, forgetpass.class);
+                startActivity(i);
+            }
+        });
 
         register.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -52,87 +57,88 @@ public class login_activity extends AppCompatActivity {
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                loginUser();
-            }
-        });
-    }
+                    final String username = usernameEditText.getText().toString().trim().toUpperCase();
+                    final String dept = deptEditText.getText().toString().trim().toUpperCase();
+                    final String enteredPassword = passwordEditText.getText().toString();
 
-    private void loginUser() {
-        final String username = usernameEditText.getText().toString();
-        final String dept = deptEditText.getText().toString();
-        final String password = passwordEditText.getText().toString();
 
-        databaseReference.child(dept).child(username).addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if (snapshot.exists()) {
-                    String storedPassword = snapshot.child("password").getValue(String.class);
+                    databaseReference.child(dept).child(username).addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            if (snapshot.exists()) {
+                                // Check if the password field exists
+                                    String storedPassword = snapshot.child("password").getValue(String.class);
 
-                    // Decrypt stored password using SHA-256
-                    if (storedPassword.equals(hashPassword(password))) {
-                        // Passwords match, user authenticated
+                                    // Hash the entered password
+                                    String encryptedEnteredPassword = encryptPassword(enteredPassword);
 
-                        // Redirect to loading
-                        Intent intent = new Intent(login_activity.this, loadin.class);
-                        startActivity(intent);
+                                    // Compare hashed passwords directly
+                                    if (encryptedEnteredPassword.equals(storedPassword)) {
+                                        // Passwords match, user authenticated
 
-                        // After password check, assuming "rollNo" is the field in your database
-                        String rollNo = snapshot.child("roll").getValue(String.class);
+                                        // Redirect to loading
+                                        Intent intent = new Intent(login_activity.this, loadin.class);
+                                        startActivity(intent);
+                                        finish();
 
-                        // Save the roll number to SharedPreferences
-                        getSharedPreferences("user_info", MODE_PRIVATE)
-                                .edit()
-                                .putString("roll", rollNo)
-                                .apply();
+                                        // After password check, assuming "rollNo" is the field in your database
+                                        String rollNo = snapshot.child("roll").getValue(String.class);
 
-                        String Dept = snapshot.child("dept").getValue(String.class);
+                                        // Save the roll number to SharedPreferences
+                                        getSharedPreferences("user_info", MODE_PRIVATE)
+                                                .edit()
+                                                .putString("roll", rollNo)
+                                                .apply();
 
-                        // Save the dept number to SharedPreferences
-                        getSharedPreferences("user_dept", MODE_PRIVATE)
-                                .edit()
-                                .putString("dept", Dept)
-                                .apply();
+                                        String Dept = snapshot.child("dept").getValue(String.class);
 
-                    } else {
-                        // Passwords don't match
-                        Toast.makeText(login_activity.this, "Incorrect password", Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(login_activity.this, login_failed.class);
-                        startActivity(intent);
-                    }
-                } else {
-                    // User not found
-                    Toast.makeText(login_activity.this, "User not found", Toast.LENGTH_SHORT).show();
+                                        // Save the dept number to SharedPreferences
+                                        getSharedPreferences("user_dept", MODE_PRIVATE)
+                                                .edit()
+                                                .putString("dept", Dept)
+                                                .apply();
+
+                                       // return; // Exit the method after successful login
+                                    }
+                                    else {
+                                        // Passwords don't match or password field doesn't exist
+                                        Toast.makeText(login_activity.this, "Incorrect password", Toast.LENGTH_SHORT).show();
+                                        Intent intent = new Intent(login_activity.this, login_failed.class);
+                                        startActivity(intent);
+                                    }
+                            } else {
+                                // User not found
+                                Toast.makeText(login_activity.this, "User not found", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+                            Toast.makeText(login_activity.this, "Error: " + error.getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                    });
                 }
-            }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(login_activity.this, "Error: " + error.getMessage(), Toast.LENGTH_SHORT).show();
-            }
+
         });
     }
 
-    private String hashPassword(String password) {
+
+    private String encryptPassword(String password) {
         try {
-            // Create MessageDigest instance for SHA-256
-            MessageDigest md = MessageDigest.getInstance("SHA-256");
+            MessageDigest digest = MessageDigest.getInstance("SHA-256");
+            byte[] hashedBytes = digest.digest(password.getBytes());
 
-            // Add password bytes to digest
-            md.update(password.getBytes());
-
-            // Get the hashed bytes
-            byte[] hashedBytes = md.digest();
-
-            // Convert bytes to hexadecimal format
-            StringBuilder sb = new StringBuilder();
-            for (byte b : hashedBytes) {
-                sb.append(String.format("%02x", b));
+            // Convert bytes to hexadecimal representation
+            StringBuilder builder = new StringBuilder();
+            for (byte hashedByte : hashedBytes) {
+                builder.append(Integer.toString((hashedByte & 0xff) + 0x100, 16).substring(1));
             }
-
-            return sb.toString();
+            return builder.toString();
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
-            return null; // Handle error appropriately
+            return null;
         }
     }
 }
+

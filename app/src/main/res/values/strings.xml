@@ -4,6 +4,7 @@
     <string name="channel_name">RegistriX</string>
     <string name="channel_description">Alert!!!! New events available take a look over it.....</string>
     <string name="register_he">register here</string>
+    <string name="forget">Forget Password</string>
     <string name="donthaveac">Don\'t Have an account?</string>
 
 </resources>

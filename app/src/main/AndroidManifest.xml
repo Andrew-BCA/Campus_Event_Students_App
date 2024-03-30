@@ -2,10 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.WAKE_LOCK"/>
-
-
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.INTERNET" />
 
 
     <application
@@ -18,6 +16,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.CampusEventStudents"
         tools:targetApi="31">
+        <activity
+            android:name=".forgetpass"
+            android:exported="false" />
         <activity
             android:name=".loading_reg"
             android:exported="false" />
@@ -38,12 +39,6 @@
             android:exported="false" />
         <activity
             android:name=".View_Notify"
-            android:exported="false" />
-        <activity
-            android:name=".register_activity$CustomPDFView"
-            android:exported="false" />
-        <activity
-            android:name=".PDFViewActivity"
             android:exported="false" />
         <activity
             android:name=".event_reg_activity"
@@ -67,15 +62,13 @@
             </intent-filter>
         </activity>
 
-        <service android:name=".MyNotification"
+        <service
+            android:name=".MyNotification"
             android:exported="true">
             <intent-filter>
-                <action android:name="com.google.firebase.MESSAGING_EVENT"/>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
-
     </application>
 
-
 </manifest>
-

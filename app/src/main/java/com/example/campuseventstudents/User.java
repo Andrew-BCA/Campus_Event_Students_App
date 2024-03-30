@@ -5,7 +5,6 @@ public class User {
     private String roll;
     private String Dept;
     private String mobile;
-
     private String username;
     private String email;
     private String password;
@@ -46,4 +45,5 @@ public class User {
     public String getPassword() {
         return password;
     }
+    public void setPassword(String password){this.password=password; }
 }
